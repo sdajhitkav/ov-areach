@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Important Message</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #05050a;
+      color: #00f3ff;
+      font-family: "Courier New", Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+    .box {
+      max-width: 520px;
+      width: 100%;
+      border: 2px solid #00f3ff;
+      padding: 30px 24px;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.25);
+      background: rgba(10, 15, 25, 0.9);
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 14px;
+      letter-spacing: 1.5px;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #c8f7ff;
+      margin-bottom: 20px;
+    }
+    .bar-bg {
+      width: 100%;
+      height: 18px;
+      background: #111a24;
+      border: 1px solid #00f3ff;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #00f3ff;
+      transition: width 0.25s ease;
+    }
+    .status {
+      font-size: 13px;
+      color: #ff66b2;
+      margin-bottom: 20px;
+      min-height: 20px;
+    }
+    button {
+      background: #00f3ff;
+      color: #05050a;
+      border: none;
+      padding: 12px 24px;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #66f9ff;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" id="stage1">
+    <h1>🎁 YOU WON A FREE GIFT!</h1>
+    <p>Click below to claim your surprise reward before the timer runs out.</p>
+    <button onclick="startPrank()">CLAIM REWARD</button>
+  </div>
+
+  <div class="box hidden" id="stage2">
+    <h1 id="titleText">⚡ INITIALIZING SCAN...</h1>
+    <div class="bar-bg">
+      <div class="bar-fill" id="barFill"></div>
+    </div>
+    <div class="status" id="statusText">Checking browser history...</div>
+    <button class="hidden" id="revealBtn" onclick="revealJoke()">SEE FULL REPORT</button>
+  </div>
+
+  <script>
+    const messages = [
+      "Scanning meme folder...",
+      "Counting unread messages...",
+      "Detecting excessive screen time...",
+      "Analysis complete!"
+    ];
+
+    function startPrank() {
+      document.getElementById("stage1").classList.add("hidden");
+      document.getElementById("stage2").classList.remove("hidden");
+
+      let progress = 0;
+      let msgIndex = 0;
+      const bar = document.getElementById("barFill");
+      const status = document.getElementById("statusText");
+
+      const interval = setInterval(() => {
+        progress += 25;
+        bar.style.width = progress + "%";
+        status.textContent = messages[msgIndex] || "Done!";
+        msgIndex++;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          document.getElementById("titleText").textContent = "😂 GOTCHA!";
+          status.textContent = "Relax, your device is 100% fine. You just got pranked!";
+          document.getElementById("revealBtn").classList.remove("hidden");
+        }
+      }, 900);
+    }
+
+    function revealJoke() {
+      alert("Have a great day! Send this link to prank someone else.");
+    }
+  </script>
+</body>
+</html>
